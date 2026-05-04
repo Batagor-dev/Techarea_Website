@@ -218,3 +218,47 @@ Breadcrumbs::for('article.show', function (BreadcrumbTrail $trail, $article) {
 });
 
 // **************************** END ARTICLE ***************************
+
+// **************************** Project ***************************
+
+// Home > Project
+Breadcrumbs::for('project.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Project Portofolio', route('project.index'));
+});
+
+// Home > Project > [Update]
+Breadcrumbs::for('project.edit', function (BreadcrumbTrail $trail, $project) {
+    $trail->parent('project.index');
+    $trail->push('Update [' . $project->name_project_id . ']', route('project.edit', $project));
+});
+
+// Home > Project > Create
+Breadcrumbs::for('project.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('project.index');
+    $trail->push('Create', route('project.create'));
+});
+
+// **************************** END Project ***************************
+
+// **************************** Sertifikat ***************************
+
+// Home > Sertifikat
+Breadcrumbs::for('sertifikat.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Sertifikat Portofolio', route('sertifikat.index'));
+});
+
+// Home > Sertifikat > [Update]
+Breadcrumbs::for('sertifikat.edit', function (BreadcrumbTrail $trail, $sertifikat) {
+    $trail->parent('sertifikat.index');
+    $trail->push('Update [' . $sertifikat->name_sertifikat_id . ']', route('sertifikat.edit', $sertifikat));
+});
+
+// Home > Sertifikat > Create
+Breadcrumbs::for('sertifikat.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('sertifikat.index');
+    $trail->push('Create', route('sertifikat.create'));
+});
+
+// **************************** END Sertifikat ***************************

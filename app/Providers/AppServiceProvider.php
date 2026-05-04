@@ -11,6 +11,12 @@ use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 
+// Translation Service
+use App\Models\Project;
+use App\Models\Sertifikat;
+use App\Observers\ProjectObserver;
+use App\Observers\SertifikatObserver;
+
 class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
@@ -64,5 +70,9 @@ class AppServiceProvider extends ServiceProvider
                 ->action('Verifikasi Email', $url)
                 ->line('Apabila Anda tidak merasa melakukan pendaftaran akun, silakan abaikan email ini.');
         });
+
+        // Register Observers untuk auto-translate
+        Project::observe(ProjectObserver::class);
+        Sertifikat::observe(SertifikatObserver::class);
     }
 }
