@@ -6,15 +6,14 @@
   dir="ltr"
   data-skin="default"
   data-bs-theme="light"
-  data-assets-path="{{asset('assets/')}}"
-  data-template="vertical-menu-template-no-customizer">
+  data-assets-path="{{asset('assets/')}}">
   <head>
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Demo: Academy - My Courses - App | Materialize - Bootstrap Dashboard PRO</title>
+    <title>Portofolio Batagor Dev</title>
 
     <meta name="description" content="" />
 

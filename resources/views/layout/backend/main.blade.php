@@ -5,8 +5,7 @@
   dir="ltr"
   data-skin="default"
   data-bs-theme="light"
-  data-assets-path="{{asset('assets/')}}"
-  data-template="vertical-menu-template-no-customizer">
+  data-assets-path="{{asset('assets/')}}">
   <head>
     <meta charset="utf-8" />
     <meta

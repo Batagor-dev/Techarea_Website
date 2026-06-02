@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateSertifikatRequest;
 use App\DataTables\SertifikatDataTable;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 class SertifikatController extends Controller
 {
@@ -61,6 +62,8 @@ class SertifikatController extends Controller
 
         Sertifikat::create($data);
 
+        Cache::forget('all-data');
+
         return redirect('/sertifikat')->with('success', 'Sertifikat berhasil dibuat!');
     }
 
@@ -108,6 +111,8 @@ class SertifikatController extends Controller
         }
 
         $sertifikat->update($data);
+
+        Cache::forget('all-data');
 
         return redirect('/sertifikat')->with('success', 'Sertifikat berhasil diupdate!');
     }

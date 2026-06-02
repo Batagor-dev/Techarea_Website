@@ -25,7 +25,7 @@ class SertifikatDataTable extends DataTable
             // 🔹 Image preview
             ->addColumn('image', function ($row) {
                 return $row->image
-                    ? '<img src="'.asset('storage/'.$row->image).'" 
+                    ? '<img src="'.$row->image.'" 
                             class="rounded" 
                             style="width:60px;height:60px;object-fit:cover;">'
                     : '-';

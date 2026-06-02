@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\DataTables\ProjectDataTable;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 class ProjectController extends Controller
 {
@@ -60,6 +61,8 @@ class ProjectController extends Controller
         }
 
         Project::create($data);
+        
+        Cache::forget('all-data');
 
         return redirect('/project')->with('success', 'Project berhasil dibuat!');
     }
@@ -108,6 +111,8 @@ class ProjectController extends Controller
         }
 
         $project->update($data);
+
+        Cache::forget('all-data');
 
         return redirect('/project')->with('success', 'Project berhasil diupdate!');
     }

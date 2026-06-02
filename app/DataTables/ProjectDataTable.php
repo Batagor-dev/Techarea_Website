@@ -28,7 +28,7 @@ class ProjectDataTable extends DataTable
             // 🔹 Image preview
            ->addColumn('image', function ($row) {
                 return $row->image
-                    ? '<img src="'.asset('storage/'.$row->image).'" 
+                    ? '<img src="'.$row->image.'" 
                             class="rounded-circle" 
                             style="width:50px;height:50px;object-fit:cover;">'
                     : '-';
