@@ -119,16 +119,6 @@ class MenuSeeder extends Seeder
             'status'             => '1',
             'sort'               => '4',
         ]);
-
-        // Menu Sertifikat
-        $sertifikat = Menu::create([
-            'nama_menu'          => 'Sertifikat',
-            'permission_group_id'=> 10,
-            'href'               => '/sertifikat', 
-            'icon'               => 'ri-award-line',
-            'status'             => '1',
-            'sort'               => '5',
-        ]);
         
     }
 }

@@ -24,10 +24,3 @@ Route::prefix('projects')->group(function () {
     // URL: domain.com/api/projects/{slug}
     Route::get('/{project}', [DataController::class, 'showProject']);
 });
-
-// Grouping route Sertifikat
-Route::prefix('sertifikats')->group(function () {
-    // Detail Sertifikat menggunakan slug (Pastikan Model Sertifikat juga punya getRouteKeyName)
-    // URL: domain.com/api/sertifikats/{sertifikat}
-    Route::get('/{sertifikat}', [DataController::class, 'showSertifikat']);
-});

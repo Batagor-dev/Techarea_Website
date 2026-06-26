@@ -13,9 +13,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 
 // Translation Service
 use App\Models\Project;
-use App\Models\Sertifikat;
 use App\Observers\ProjectObserver;
-use App\Observers\SertifikatObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -73,6 +71,5 @@ class AppServiceProvider extends ServiceProvider
 
         // Register Observers untuk auto-translate
         Project::observe(ProjectObserver::class);
-        Sertifikat::observe(SertifikatObserver::class);
     }
 }

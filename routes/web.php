@@ -57,10 +57,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'project' => 'project:slug',
     ]);
 
-    Route::resource('/sertifikat', App\Http\Controllers\SertifikatController::class)->parameters([
-        'sertifikat' => 'sertifikat:slug',
-    ]);
-
     // Route::prefix('setting')->group(function () {
     //     Route::get('/',[App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
     //     Route::get('/create',[App\Http\Controllers\SettingController::class, 'create'])->name('setting.create');

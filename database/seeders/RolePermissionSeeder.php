@@ -26,7 +26,6 @@ class RolePermissionSeeder extends Seeder
             'Article',
             'Setting',
             'Project',
-            'Sertifikat',
         ];
 
         foreach ($permissiongroups as $permissiongroup) {
@@ -78,11 +77,6 @@ class RolePermissionSeeder extends Seeder
             'Project Create-9',
             'Project Update-9',
             'Project Delete-9',
-            'Sertifikat Access-10',
-            'Sertifikat Detail-10',
-            'Sertifikat Create-10',
-            'Sertifikat Update-10',
-            'Sertifikat Delete-10',
         ];
 
         foreach ($permissions as $permission) {

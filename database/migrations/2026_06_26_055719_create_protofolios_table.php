@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sertifikats', function (Blueprint $table) {
-             $table->id();
+        Schema::create('protofolios', function (Blueprint $table) {
+            $table->id();
             $table->string('slug', 50)->unique();
-            $table->string('name_sertifikat_id', 100);
-            $table->string('name_sertifikat_en', 100);
+            $table->foreignId('kategori_protofolio_id')->constrained('kategori_protofolios')->onDelete('cascade');
+            $table->string('name_project_id', 100);
+            $table->string('name_project_en', 100);
             $table->string('image');
-            $table->date('published_at');
+            $table->json('technology');
+            $table->string('link_demo')->nullable();
             $table->text('deskripsi_id');
             $table->text('deskripsi_en');
             $table->softDeletes();
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sertifikats');
+        Schema::dropIfExists('protofolios');
     }
 };
