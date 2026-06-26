@@ -2,39 +2,29 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Traits\HasSlug;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Storage;
 
 class Project extends Model
 {
-    use HasSlug, SoftDeletes;
+    use HasUuid, SoftDeletes;
 
     protected $fillable = [
-        'name_project_id',
-        'name_project_en',
-        'slug',
-        'image',
-        'technology',
-        'link_demo',
-        'deskripsi_id',
-        'deskripsi_en',
+        'uuid',
+        'kategori_project_id',
+        'name_project',
+        'deskripsi_project',
+        'status_project',
     ];
-
-    protected $casts = [
-        'technology' => 'array', // biar auto json <-> array
-    ];
-
-    protected $slugFrom = 'name_project_id';
 
     public function getRouteKeyName()
     {
-        return 'slug';
+        return 'uuid';
     }
 
-    public function getImageAttribute($value)
+    public function kategoriProject()
     {
-        return $value ? asset('storage/' . $value) : null;
+        return $this->belongsTo(KategoriProject::class, 'kategori_project_id');
     }
 }

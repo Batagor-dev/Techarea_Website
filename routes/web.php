@@ -53,8 +53,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'article' => 'article:slug',
     ]);
 
+    Route::resource('/kategori_project', App\Http\Controllers\KategoriProjectController::class)->except('show');
+
     Route::resource('/project', App\Http\Controllers\ProjectController::class)->parameters([
-        'project' => 'project:slug',
+        'project' => 'project:uuid',
     ]);
 
     // Route::prefix('setting')->group(function () {

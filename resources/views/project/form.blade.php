@@ -10,147 +10,89 @@
             ->where('title', '!=', $breadcrumb->title)
             ->last();
     }
-
-     $selectedTech = old('technology', isset($project_data) 
-        ? (is_array($project_data->technology) 
-            ? $project_data->technology 
-            : json_decode($project_data->technology, true)) 
-        : []);
 @endphp
 
 @extends('layout.backend.main', [
-    'title'     => 'Dashboard | ' . config('app.name'),
+    'title' => 'Project | ' . config('app.name'),
     'sub_title' => $sub_title,
 ])
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    
-    {{ isset($project_data) 
-        ? Breadcrumbs::render(Request::route()->getName(), $project_data) 
-        : Breadcrumbs::render(Request::route()->getName()) 
-    }}
+    {{ isset($project_data) ? Breadcrumbs::render(Request::route()->getName(), $project_data) : Breadcrumbs::render(Request::route()->getName()) }}
 
     <div class="card mb-6">
-        <form class="card-body" method="POST" action="{{ $action }}" enctype="multipart/form-data">
-            @isset($project_data) @method('PUT') @endisset
+        <form class="card-body" method="POST" action="{{ $action }}">
             @csrf
+            @isset($project_data) @method('PUT') @endisset
 
-            <!-- Name ID -->
-            <div class="row mb-4">
-                <label class="col-sm-3 col-form-label">Name Project</label>
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label" for="kategori_project_id">Kategori Project<span class="text-danger">*</span></label>
                 <div class="col-sm-9">
-                    <input type="text"
-                        name="name_project_id"
-                        class="form-control @error('name_project_id') is-invalid @enderror"
-                        value="{{ old('name_project_id', $project_data->name_project_id ?? '') }}"
-                        placeholder="Nama project (Indonesia)">
-                     
-                    <small class="text-muted">
-                        Gunakan nama project dalam bahasa Indonesia yang jelas dan mudah dipahami.
-                    </small>    
-                    @error('name_project_id')
+                    <select id="kategori_project_id" name="kategori_project_id" class="form-select select2" data-allow-clear="true">
+                        <option value="">-- Pilih Kategori --</option>
+                        @foreach($kategori_projects as $kategori)
+                            <option value="{{ $kategori->id }}"
+                                {{ old('kategori_project_id', $project_data->kategori_project_id ?? '') == $kategori->id ? 'selected' : '' }}>
+                                {{ $kategori->nama_kategori }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('kategori_project_id')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label" for="name_project">Nama Project<span class="text-danger">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" id="name_project" name="name_project"
+                        class="form-control @error('name_project') is-invalid @enderror"
+                        value="{{ old('name_project', $project_data->name_project ?? '') }}"
+                        placeholder="Nama project">
+                    @error('name_project')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
 
-            <!-- Image -->
-            <div class="row mb-4">
-                <label class="col-sm-3 col-form-label">Image</label>
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label" for="deskripsi_project">Deskripsi Project</label>
                 <div class="col-sm-9">
-                    <input type="file"
-                        name="image"
-                        class="form-control @error('image') is-invalid @enderror">
-                        
-                    @if(isset($project_data) && $project_data->image)
-                        <div class="mt-2">
-                            <div class="ratio ratio-16x9" style="max-width:200px;">
-                                <img src="{{ asset('storage/' . $project_data->image) }}"
-                                    alt="Preview"
-                                    class="img-fluid rounded"
-                                    style="object-fit: cover;">
-                            </div>
-                        </div>
-                    @endif
-
-                    @if(isset($project_data) && $project_data->image)
-                        <small class="text-muted d-block mt-2">
-                            Current: {{ $project_data->image }}
-                        </small>
-                    @endif
-
-                    @error('image')
+                    <textarea id="deskripsi_project" name="deskripsi_project" rows="4"
+                        class="form-control @error('deskripsi_project') is-invalid @enderror"
+                        placeholder="Deskripsi project">{{ old('deskripsi_project', $project_data->deskripsi_project ?? '') }}</textarea>
+                    @error('deskripsi_project')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
 
-            <!-- Technology -->
-            <div class="row mb-4">
-                <label class="col-sm-3 col-form-label">Technology</label>
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label" for="status_project">Status<span class="text-danger">*</span></label>
                 <div class="col-sm-9">
-                    <div class="form-floating form-floating-outline select2-primary">
-                        <select id="technology" name="technology[]" class="select2 form-select" multiple>
-                            <option value="Laravel" {{ in_array('Laravel', $selectedTech ?? []) ? 'selected' : '' }}>Laravel</option>
-                            <option value="React" {{ in_array('React', $selectedTech ?? []) ? 'selected' : '' }}>React</option>
-                            <option value="Next.js" {{ in_array('Next.js', $selectedTech ?? []) ? 'selected' : '' }}>Next.js</option>
-                            <option value="Vue" {{ in_array('Vue', $selectedTech ?? []) ? 'selected' : '' }}>Vue</option>
-                            <option value="Tailwind" {{ in_array('Tailwind', $selectedTech ?? []) ? 'selected' : '' }}>Tailwind</option>
-                            <option value="Node.js" {{ in_array('Node.js', $selectedTech ?? []) ? 'selected' : '' }}>Node.js</option>
-                        </select>
-
-                        <label for="technology">Technology</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Link Demo -->
-            <div class="row mb-4">
-                <label class="col-sm-3 col-form-label">Link Demo</label>
-                <div class="col-sm-9">
-                    <input type="text"
-                        name="link_demo"
-                        class="form-control @error('link_demo') is-invalid @enderror"
-                        value="{{ old('link_demo', $project_data->link_demo ?? '') }}"
-                        placeholder="https://...">
-                    @error('link_demo')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                    <select id="status_project" name="status_project" class="form-select select2" data-allow-clear="true">
+                        <option value="">-- Pilih Kategori --</option>
+                        @foreach($kategori_projects as $kategori)
+                           <option value="pending" {{ old('status_project', $project_data->status_project ?? 'pending') == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="dikerjakan" {{ old('status_project', $project_data->status_project ?? '') == 'dikerjakan' ? 'selected' : '' }}>Dikerjakan</option>
+                            <option value="selesai" {{ old('status_project', $project_data->status_project ?? '') == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                            <option value="dibatalkan" {{ old('status_project', $project_data->status_project ?? '') == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
+                        @endforeach
+                    </select>
+                    @error('status_project')
+                        <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
             </div>
 
-            <!-- Deskripsi ID -->
-            <div class="row mb-4">
-                <label class="col-sm-3 col-form-label">Deskripsi Project</label>
+            <div class="mt-4 row justify-content-end">
                 <div class="col-sm-9">
-                    <textarea name="deskripsi_id"
-                        class="form-control @error('deskripsi_id') is-invalid @enderror"
-                        rows="3">{{ old('deskripsi_id', $project_data->deskripsi_id ?? '') }}</textarea>
-                    
-                    <small class="text-muted">
-                        Gunakan deskripsi project dalam bahasa Indonesia yang jelas dan mudah dipahami.
-                    </small> 
-                        @error('deskripsi_id')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <button type="submit" class="btn btn-primary me-2">Submit</button>
+                    <a href="{{ isset($breadcrumb_parent->url) ? $breadcrumb_parent->url : route('project.index') }}" class="btn btn-outline-secondary">Cancel</a>
                 </div>
             </div>
-
-            <!-- Submit -->
-            <div class="pt-6">
-                <div class="row justify-content-end">
-                    <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary me-4">Submit</button>
-                        <button type="reset"
-                            class="btn btn-outline-secondary"
-                            onclick="window.location.href='{{ $breadcrumb_parent->url }}'">
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            </div>
-
         </form>
     </div>
 </div>
@@ -158,12 +100,12 @@
 
 @push('scripts')
 <script>
-        $(document).ready(function () {
-            $('.select2').select2({
-                placeholder: "-- Select Tech Stack --",
-                allowClear: true,
-                width: '100%'
-            });
+    $(document).ready(function () {
+        $('.select2').select2({
+            placeholder: '-- Pilih --',
+            allowClear: true,
+            width: '100%'
         });
+    });
 </script>
 @endpush

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProjectRequest extends FormRequest
+class StoreKategoriProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,7 @@ class StoreProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'kategori_project_id' => 'required|exists:kategori_projects,id',
-            'name_project' => 'required|string|max:100',
-            'deskripsi_project' => 'nullable|string',
-            'status_project' => 'required|in:pending,dikerjakan,selesai,dibatalkan',
+            'nama_kategori' => 'required|string|max:255',
         ];
     }
 }

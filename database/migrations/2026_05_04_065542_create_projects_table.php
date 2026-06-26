@@ -14,7 +14,15 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid', 50)->unique();
+            $table->foreignId('kategori_project_id')->constrained('kategori_projects')->onDelete('cascade');
             $table->string('name_project', 100);
+            $table->string('deskripsi_project')->nullable();
+            $table->enum('status_project', [
+                'pending',
+                'dikerjakan',
+                'selesai',
+                'dibatalkan'
+            ])->default('pending');
             $table->softDeletes();
             $table->timestamps();
         });

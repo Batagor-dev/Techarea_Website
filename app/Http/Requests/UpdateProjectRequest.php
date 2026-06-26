@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateProjectRequest extends FormRequest
 {
@@ -22,21 +21,13 @@ class UpdateProjectRequest extends FormRequest
      *
      * @return array
      */
-   public function rules()
+    public function rules()
     {
         return [
-            'name_project_id' => 'required|string|max:100',
-            'name_project_en' => 'nullabe|string|max:100',
-
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-
-            'technology' => 'required|array',
-            'technology.*' => 'string|max:50',
-
-            'link_demo' => 'nullable|url',
-
-            'deskripsi_id' => 'required|string',
-            'deskripsi_en' => 'nullable|string',
+            'kategori_project_id' => 'required|exists:kategori_projects,id',
+            'name_project' => 'required|string|max:100',
+            'deskripsi_project' => 'nullable|string',
+            'status_project' => 'required|in:pending,dikerjakan,selesai,dibatalkan',
         ];
     }
 }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('kategori_projects', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid', 50)->unique();
+            $table->string('nama_kategori', 100);
             $table->softDeletes();
             $table->timestamps();
         });

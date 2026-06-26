@@ -2,38 +2,25 @@
 
 namespace App\DataTables;
 
-use App\Models\Project;
+use App\Models\KategoriProject;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ProjectDataTable extends DataTable
+class KategoriProjectDataTable extends DataTable
 {
-    /**
-     * Build DataTable class.
-     */
     public function dataTable($query)
     {
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->addColumn('kategori_project', fn($row) => $row->kategoriProject->nama_kategori ?? '-')
-            ->addColumn('status_project', function ($row) {
-                return match ($row->status_project) {
-                    'pending' => '<span class="badge bg-warning text-dark">Pending</span>',
-                    'dikerjakan' => '<span class="badge bg-info text-dark">Dikerjakan</span>',
-                    'selesai' => '<span class="badge bg-success">Selesai</span>',
-                    'dibatalkan' => '<span class="badge bg-danger">Dibatalkan</span>',
-                    default => '-',
-                };
-            })
             ->addColumn('action', function ($row) {
-                $edit = '<a href="'.route('project.edit', $row->uuid).'"
+                $edit = '<a href="'.route('kategori_project.edit', $row->uuid).'"
                             class="btn btn-sm btn-text-secondary rounded-pill btn-icon"
                             data-bs-toggle="tooltip" title="Edit">
                             <i class="ri ri-edit-line icon-20px"></i></a>';
 
                 $delete = '
-                            <form action="'.route('project.destroy', $row->uuid).'" method="POST" style="display:inline-block;" class="delete-form">
+                            <form action="'.route('kategori_project.destroy', $row->uuid).'" method="POST" style="display:inline-block;" class="delete-form">
                                 '.csrf_field().method_field('DELETE').'
                                 <button type="button" class="btn btn-sm btn-text-secondary rounded-pill btn-icon delete-btn"
                                     data-id="'.$row->uuid.'"
@@ -44,24 +31,18 @@ class ProjectDataTable extends DataTable
 
                 return $edit.' '.$delete;
             })
-            ->rawColumns(['status_project', 'action']);
+            ->rawColumns(['action']);
     }
 
-    /**
-     * Get query source of dataTable.
-     */
-    public function query(Project $model)
+    public function query(KategoriProject $model)
     {
-        return $model->with('kategoriProject');
+        return $model->newQuery();
     }
 
-    /**
-     * Optional HTML builder.
-     */
     public function html()
     {
         return $this->builder()
-            ->setTableId('project-table')
+            ->setTableId('kategori-project-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)
@@ -79,7 +60,7 @@ class ProjectDataTable extends DataTable
                            >',
                 'language' => [
                     'search' => 'Search',
-                    'searchPlaceholder' => 'Search project...',
+                    'searchPlaceholder' => 'Search category...',
                     'lengthMenu' => '_MENU_ Entries',
                     'info' => 'Showing _START_ to _END_ of _TOTAL_ entries',
                     'paginate' => [
@@ -90,17 +71,11 @@ class ProjectDataTable extends DataTable
             ]);
     }
 
-    /**
-     * Get columns.
-     */
     protected function getColumns()
     {
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false)->width(30),
-            Column::make('name_project')->title('Project Name'),
-            Column::make('kategori_project')->title('Kategori')->orderable(false),
-            Column::make('status_project')->title('Status')->orderable(false),
-            Column::make('deskripsi_project')->title('Deskripsi')->orderable(false),
+            Column::make('nama_kategori')->title('Kategori Name'),
             Column::computed('action')
                 ->title('Action')
                 ->exportable(false)
@@ -109,11 +84,8 @@ class ProjectDataTable extends DataTable
         ];
     }
 
-    /**
-     * Export filename.
-     */
     protected function filename(): string
     {
-        return 'Projects_' . date('YmdHis');
+        return 'KategoriProject_' . date('YmdHis');
     }
 }

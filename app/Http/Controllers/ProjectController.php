@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
+use App\DataTables\ProjectDataTable;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
-use App\DataTables\ProjectDataTable;
-use App\Services\ImageService;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Cache;
+use App\Models\KategoriProject;
+use App\Models\Project;
 
 class ProjectController extends Controller
 {
@@ -29,9 +27,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        // $this->data['projects'] = Project::all();
+        $this->data['kategori_projects'] = KategoriProject::orderBy('nama_kategori')->get();
+        $this->data['action'] = '/project';
 
-        $this->data['action'] = "/project";
         return view('project.form', $this->data);
     }
 
@@ -41,28 +39,9 @@ class ProjectController extends Controller
      * @param  \App\Http\Requests\StoreProjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProjectRequest $request, ImageService $imageService)
+    public function store(StoreProjectRequest $request)
     {
-        $data = $request->all();
-
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-
-            // proses compress
-            $compressed = $imageService->compress($file);
-
-            // nama file unik
-            $filename = 'projects/' . uniqid() . '.jpg';
-
-            // simpan ke storage
-            Storage::disk('public')->put($filename, $compressed);
-
-            $data['image'] = $filename;
-        }
-
-        Project::create($data);
-        
-        Cache::forget('all-data');
+        Project::create($request->validated());
 
         return redirect('/project')->with('success', 'Project berhasil dibuat!');
     }
@@ -75,10 +54,10 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $this->data['projects'] = Project::all();
-
+        $this->data['kategori_projects'] = KategoriProject::orderBy('nama_kategori')->get();
         $this->data['project_data'] = $project;
-        $this->data['action'] = "/project/".$project->slug;
+        $this->data['action'] = '/project/' . $project->uuid;
+
         return view('project.form', $this->data);
     }
 
@@ -89,30 +68,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProjectRequest $request, Project $project, ImageService $imageService)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
-        $data = $request->all();
-
-        if ($request->hasFile('image')) {
-            // hapus gambar lama (biar gak numpuk)
-            if ($project->image) {
-                Storage::disk('public')->delete($project->image);
-            }
-
-            $file = $request->file('image');
-
-            $compressed = $imageService->compress($file);
-
-            $filename = 'projects/' . uniqid() . '.jpg';
-
-            Storage::disk('public')->put($filename, $compressed);
-
-            $data['image'] = $filename;
-        }
-
-        $project->update($data);
-
-        Cache::forget('all-data');
+        $project->update($request->validated());
 
         return redirect('/project')->with('success', 'Project berhasil diupdate!');
     }
@@ -126,6 +84,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-        return redirect('/project')->with('success', 'Permission Group has been deleted!');
+
+        return redirect('/project')->with('success', 'Project berhasil dihapus!');
     }
 }

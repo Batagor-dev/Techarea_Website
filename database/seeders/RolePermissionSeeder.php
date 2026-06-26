@@ -25,6 +25,7 @@ class RolePermissionSeeder extends Seeder
             'Article Category',
             'Article',
             'Setting',
+            'Kategori Project',
             'Project',
         ];
 
@@ -72,11 +73,16 @@ class RolePermissionSeeder extends Seeder
             'Setting Create-8',
             'Setting Update-8',
             'Setting Delete-8',
-            'Project Access-9',
-            'Project Detail-9',
-            'Project Create-9',
-            'Project Update-9',
-            'Project Delete-9',
+            'Kategori Project Access-9',
+            'Kategori Project Detail-9',
+            'Kategori Project Create-9',
+            'Kategori Project Update-9',
+            'Kategori Project Delete-9',
+            'Project Access-10',
+            'Project Detail-10',
+            'Project Create-10',
+            'Project Update-10',
+            'Project Delete-10',
         ];
 
         foreach ($permissions as $permission) {

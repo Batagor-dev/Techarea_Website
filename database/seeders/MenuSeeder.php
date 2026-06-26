@@ -111,13 +111,30 @@ class MenuSeeder extends Seeder
         ]);
 
         // Menu Project
-        $project = Menu::create([
-            'nama_menu'          => 'Project',
+        $managemnt_project = Menu::create([
+            'nama_menu'          => 'Managemnt Project',
             'permission_group_id'=> 9,
-            'href'               => '/project', 
             'icon'               => 'ri-folders-line',
             'status'             => '1',
             'sort'               => '4',
+        ]);
+
+        Menu::create([
+            'menu_id'            => $managemnt_project->id,
+            'nama_menu'          => 'Kategori Project',
+            'permission_group_id'=> 9,
+            'href'               => '/kategori_project',
+            'status'             => '1',
+            'sort'               => '1',
+        ]);
+
+        Menu::create([
+            'menu_id'            => $managemnt_project->id,
+            'nama_menu'          => 'Project',
+            'permission_group_id'=> 10,
+            'href'               => '/project',
+            'status'             => '1',
+            'sort'               => '2',
         ]);
         
     }
