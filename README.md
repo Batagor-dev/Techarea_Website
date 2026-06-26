@@ -1,66 +1,186 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Techarea
 
-## About Laravel
+**Platform digital untuk manajemen layanan software, konten perusahaan, dan operasional admin internal.**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[![Laravel](https://img.shields.io/badge/Laravel-11-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=flat-square&logo=php&logoColor=white)](https://php.net)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![Inertia](https://img.shields.io/badge/Inertia.js-latest-9553E9?style=flat-square)](https://inertiajs.com)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind-3.x-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+</div>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Tentang Proyek
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Techarea adalah platform internal perusahaan yang menggabungkan **company profile publik** dan **sistem manajemen admin** dalam satu aplikasi. Dibangun di atas Laravel 11 dengan frontend React + Inertia.js, proyek ini dirancang untuk:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Menampilkan layanan dan portofolio perusahaan secara profesional
+- Memudahkan tim admin mengelola seluruh konten website secara terpusat
+- Menyediakan fondasi kode yang konsisten, maintainable, dan siap dikembangkan
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Fitur Utama
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+| Modul | Deskripsi |
+|---|---|
+| **Company Profile** | Halaman publik untuk promosi layanan perusahaan |
+| **Manajemen Konten** | Menu, konten statis, dan pengaturan website |
+| **Artikel & Kategori** | Blog / artikel perusahaan dengan sistem kategori |
+| **Paket & Layanan** | Kelola paket, kelas paket, dan kategori project |
+| **Project & Portofolio** | Tampilkan project dan portofolio dengan testimoni |
+| **User & Permission** | Manajemen pengguna, role, dan permission berbasis Spatie |
+| **Pengaturan Sistem** | Konfigurasi global konten dan sistem |
+| **Integrasi AI** | Gemini API untuk kebutuhan konten dan operasional |
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Stack Teknologi
 
-## Contributing
+### Backend
+- **Laravel 11** + **PHP 8.2 / 8.3**
+- **MySQL** — database utama
+- **Laravel Fortify** — autentikasi
+- **Spatie Permission** — role & permission
+- **Yajra DataTables** — tampilan data server-side
+- **Laravel Breadcrumbs** — navigasi breadcrumb
+- **Gemini API** — integrasi AI
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Frontend
+- **React 18** + **Inertia.js** — SPA tanpa API terpisah
+- **Tailwind CSS** + **shadcn/ui** — styling dan komponen UI
+- **Blade** — template untuk halaman non-SPA
+- **Vite** — build tool & dev server
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Struktur Proyek
 
-## Security Vulnerabilities
+```
+app/
+├── Http/
+│   ├── Controllers/        # Request handler
+│   └── Requests/           # FormRequest (validasi)
+├── Models/                 # Eloquent model & relationship
+├── Services/               # Logika bisnis kompleks
+├── DataTables/             # Konfigurasi DataTables
+├── Helpers/                # Helper function global
+├── Observers/              # Event model
+├── Rules/                  # Custom validation rule
+└── Providers/              # Service provider
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+resources/
+├── js/
+│   ├── Pages/              # Halaman React (Inertia)
+│   ├── Components/         # Komponen UI reusable
+│   ├── Layouts/            # Layout aplikasi
+│   ├── Hooks/              # Custom React hooks
+│   └── Lib/                # Utility & constants
+└── views/                  # Blade template
 
-## License
+routes/                     # web.php & api.php
+database/                   # migrations & seeders
+tests/                      # Feature & Unit test
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## Persiapan Lokal
+
+### Prasyarat
+
+Pastikan environment lokal sudah memiliki:
+- PHP >= 8.2
+- Composer >= 2.x
+- Node.js >= 18.x
+- MySQL >= 8.0
+
+### Instalasi
+
+```bash
+# 1. Clone repository
+git clone https://github.com/your-org/techarea.git
+cd techarea
+
+# 2. Install dependency PHP
+composer install
+
+# 3. Install dependency frontend
+npm install
+
+# 4. Salin file environment
+cp .env.example .env
+
+# 5. Generate application key
+php artisan key:generate
+
+# 6. Konfigurasi database di .env
+DB_DATABASE=techarea
+DB_USERNAME=root
+DB_PASSWORD=
+
+# 7. Jalankan migrasi (+ seeder jika ada)
+php artisan migrate --seed
+
+# 8. Buat symlink storage
+php artisan storage:link
+```
+
+### Menjalankan Aplikasi
+
+Jalankan dua terminal secara bersamaan:
+
+```bash
+# Terminal 1 — Backend
+php artisan serve
+
+# Terminal 2 — Frontend (Vite dev server)
+npm run dev
+```
+
+Aplikasi akan berjalan di `http://localhost:8000`.
+
+---
+
+## Panduan Pengembangan
+
+Sebelum mulai coding, baca dua dokumen ini:
+
+| Dokumen | Isi |
+|---|---|
+| [`AGENTS.md`](AGENTS.md) | Aturan backend: controller, model, service, naming, dll |
+| [`Frontend.md`](Frontend.md) | Aturan frontend: React, Inertia, Tailwind, komponen, dll |
+
+### Prinsip Utama
+
+- Gunakan **FormRequest** untuk semua validasi input
+- Pisahkan logika bisnis ke **Service** jika sudah kompleks
+- Hindari **N+1 query** — selalu gunakan eager loading
+- Gunakan **Inertia `useForm`** untuk semua form, bukan axios manual
+- Tulis **Feature Test** untuk setiap endpoint penting
+
+---
+
+## Kontribusi
+
+1. Buat branch baru dari `main`:
+   ```bash
+   git checkout -b feat/nama-fitur
+   ```
+2. Pastikan kode mengikuti standar di `AGENTS.md` dan `Frontend.md`
+3. Jalankan test sebelum push:
+   ```bash
+   php artisan test
+   ```
+4. Buat pull request dengan deskripsi perubahan yang jelas
+
+---
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah [MIT License](LICENSE).
