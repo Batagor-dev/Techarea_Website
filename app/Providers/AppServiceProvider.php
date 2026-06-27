@@ -12,8 +12,10 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 
 // Translation Service
-use App\Models\Project;
-use App\Observers\ProjectObserver;
+use App\Models\Portofolio;
+use App\Models\KategoriPortofolio;
+use App\Observers\PortofolioObserver;
+use App\Observers\KategoriPortofolioObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -70,6 +72,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // Register Observers untuk auto-translate
-        Project::observe(ProjectObserver::class);
+        KategoriPortofolio::observe(KategoriPortofolioObserver::class);
+        Portofolio::observe(PortofolioObserver::class);
     }
 }

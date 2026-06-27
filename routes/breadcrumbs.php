@@ -238,6 +238,23 @@ Breadcrumbs::for('kategori_project.create', function (BreadcrumbTrail $trail) {
 
 // **************************** END KATEGORI PROJECT ***************************
 
+// **************************** Portofolio ***************************
+Breadcrumbs::for('portofolio.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Portofolio', route('portofolio.index'));
+});
+
+Breadcrumbs::for('portofolio.edit', function (BreadcrumbTrail $trail, $portofolio) {
+    $trail->parent('portofolio.index');
+    $trail->push('Update [' . $portofolio->name_project_id . ']', route('portofolio.edit', $portofolio));
+});
+
+Breadcrumbs::for('portofolio.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('portofolio.index');
+    $trail->push('Create', route('portofolio.create'));
+});
+
+// **************************** END Portofolio ***************************
 
 // **************************** Project ***************************
 
@@ -260,3 +277,22 @@ Breadcrumbs::for('project.create', function (BreadcrumbTrail $trail) {
 });
 
 // **************************** END Project ***************************
+
+// **************************** KATEGORI PORTOFOLIO ***************************
+Breadcrumbs::for('kategori_portofolio.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Kategori Portofolio', route('kategori_portofolio.index'));
+});
+
+Breadcrumbs::for('kategori_portofolio.edit', function (BreadcrumbTrail $trail, $kategori_portofolio) {
+    // dd($kategori_portofolio);
+    $trail->parent('kategori_portofolio.index');
+    $trail->push('Update [' . $kategori_portofolio->name_kategori_project_id . ']', route('kategori_portofolio.edit', $kategori_portofolio));
+});
+
+Breadcrumbs::for('kategori_portofolio.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('kategori_portofolio.index');
+    $trail->push('Create', route('kategori_portofolio.create'));
+});
+
+// **************************** END KATEGORI PORTOFOLIO ***************************

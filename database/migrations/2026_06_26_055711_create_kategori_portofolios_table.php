@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategori_protofolios', function (Blueprint $table) {
+        Schema::create('kategori_portofolios', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid', 50)->unique();
-            $table->string('name_kategori_id', 100);
-            $table->string('name_kategori_en', 100);
+            $table->string('name_kategori_project_id', 100);
+            $table->string('name_kategori_project_en', 100);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategori_protofolios');
+        Schema::dropIfExists('kategori_portofolios');
     }
 };

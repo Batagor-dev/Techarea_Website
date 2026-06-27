@@ -16,7 +16,7 @@ class CreatePermissionGroupsTable extends Migration
         Schema::create('permission_groups', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->string("name",20);
+            $table->string("name",50);
             $table->softDeletes();
             $table->timestamps();
         });

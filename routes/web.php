@@ -55,6 +55,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('/kategori_project', App\Http\Controllers\KategoriProjectController::class)->except('show');
 
+    Route::resource('/kategori_portofolio', App\Http\Controllers\KategoriPortofolioController::class)->except('show');
+
+    Route::resource('/portofolio', App\Http\Controllers\PortofolioController::class)->except('show');
+
     Route::resource('/project', App\Http\Controllers\ProjectController::class)->parameters([
         'project' => 'project:uuid',
     ]);

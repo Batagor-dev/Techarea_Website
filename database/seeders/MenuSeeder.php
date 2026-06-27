@@ -122,7 +122,7 @@ class MenuSeeder extends Seeder
         Menu::create([
             'menu_id'            => $managemnt_project->id,
             'nama_menu'          => 'Kategori Project',
-            'permission_group_id'=> 9,
+            'permission_group_id'=> 10,
             'href'               => '/kategori_project',
             'status'             => '1',
             'sort'               => '1',
@@ -131,8 +131,35 @@ class MenuSeeder extends Seeder
         Menu::create([
             'menu_id'            => $managemnt_project->id,
             'nama_menu'          => 'Project',
-            'permission_group_id'=> 10,
+            'permission_group_id'=> 11,
             'href'               => '/project',
+            'status'             => '1',
+            'sort'               => '2',
+        ]);
+
+        // Management Portofolio
+        $managemnt_portofolio = Menu::create([
+            'nama_menu'          => 'Managemnt Porto',
+            'permission_group_id'=> 12,
+            'icon'               => 'ri-briefcase-line',
+            'status'             => '1',
+            'sort'               => '5',
+        ]);
+
+        Menu::create([
+            'menu_id'            => $managemnt_portofolio->id,
+            'nama_menu'          => 'Kategori Portofolio',
+            'permission_group_id'=> 13,
+            'href'               => '/kategori_portofolio',
+            'status'             => '1',
+            'sort'               => '1',
+        ]);
+
+        Menu::create([
+            'menu_id'            => $managemnt_portofolio->id,
+            'nama_menu'          => 'Portofolio',
+            'permission_group_id'=> 14,
+            'href'               => '/portofolio',
             'status'             => '1',
             'sort'               => '2',
         ]);

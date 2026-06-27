@@ -2,7 +2,7 @@
     $sub_title = ($breadcrumb = Breadcrumbs::current()) ? $breadcrumb->title : 'Dashboard';
 @endphp
 
-@extends('layout.backend.main', ['title' => 'Portofolio | ' . config('app.name'), 'sub_title' => $sub_title])
+@extends('layout.backend.main', ['title' => 'Kategori Portofolio | ' . config('app.name'), 'sub_title' => $sub_title])
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -11,7 +11,7 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">{{ $sub_title }}</h5>
-            <a href="{{ route('portofolio.create') }}" class="btn btn-primary btn-sm">
+            <a href="{{ route('kategori_portofolio.create') }}" class="btn btn-primary btn-sm">
                 <i class="ri-add-line me-1"></i>Create New
             </a>
         </div>

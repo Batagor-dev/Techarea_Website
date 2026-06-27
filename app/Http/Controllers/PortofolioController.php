@@ -2,130 +2,85 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
-use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\UpdateProjectRequest;
-use App\DataTables\ProjectDataTable;
+use App\Models\Portofolio;
+use App\Models\KategoriPortofolio;
+use App\Http\Requests\StorePortofolioRequest;
+use App\Http\Requests\UpdatePortofolioRequest;
+use App\DataTables\PortofolioDataTable;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
 
 class PortofolioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(ProjectDataTable $dataTable)
+    public function index(PortofolioDataTable $dataTable)
     {
-        return $dataTable->render('project.index');
+        return $dataTable->render('porto.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        // $this->data['projects'] = Project::all();
+        $this->data['kategori_portofolios'] = KategoriPortofolio::orderBy('name_kategori_project_id')->get();
+        $this->data['action'] = '/portofolio';
 
-        $this->data['action'] = "/project";
-        return view('project.form', $this->data);
+        return view('porto.form', $this->data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreProjectRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreProjectRequest $request, ImageService $imageService)
+    public function store(StorePortofolioRequest $request, ImageService $imageService)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-
-            // proses compress
             $compressed = $imageService->compress($file);
-
-            // nama file unik
-            $filename = 'projects/' . uniqid() . '.jpg';
-
-            // simpan ke storage
+            $filename = 'portofolios/' . uniqid() . '.jpg';
             Storage::disk('public')->put($filename, $compressed);
-
             $data['image'] = $filename;
         }
 
-        Project::create($data);
-        
+        Portofolio::create($data);
+
         Cache::forget('all-data');
 
-        return redirect('/project')->with('success', 'Project berhasil dibuat!');
+        return redirect('/portofolio')->with('success', 'Portofolio berhasil dibuat!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Project $project)
+    public function edit(Portofolio $portofolio)
     {
-        $this->data['projects'] = Project::all();
+        $this->data['kategori_portofolios'] = KategoriPortofolio::orderBy('name_kategori_project_id')->get();
+        $this->data['portofolio_data'] = $portofolio;
+        $this->data['action'] = '/portofolio/' . $portofolio->slug;
 
-        $this->data['project_data'] = $project;
-        $this->data['action'] = "/project/".$project->slug;
-        return view('project.form', $this->data);
+        return view('porto.form', $this->data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateProjectRequest  $request
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateProjectRequest $request, Project $project, ImageService $imageService)
+    public function update(UpdatePortofolioRequest $request, Portofolio $portofolio, ImageService $imageService)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            // hapus gambar lama (biar gak numpuk)
-            if ($project->image) {
-                Storage::disk('public')->delete($project->image);
+            if ($portofolio->image) {
+                Storage::disk('public')->delete($portofolio->image);
             }
 
             $file = $request->file('image');
-
             $compressed = $imageService->compress($file);
-
-            $filename = 'projects/' . uniqid() . '.jpg';
-
+            $filename = 'portofolios/' . uniqid() . '.jpg';
             Storage::disk('public')->put($filename, $compressed);
-
             $data['image'] = $filename;
         }
 
-        $project->update($data);
+        $portofolio->update($data);
 
         Cache::forget('all-data');
 
-        return redirect('/project')->with('success', 'Project berhasil diupdate!');
+        return redirect('/portofolio')->with('success', 'Portofolio berhasil diupdate!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Project $project)
+    public function destroy(Portofolio $portofolio)
     {
-        $project->delete();
-        return redirect('/project')->with('success', 'Permission Group has been deleted!');
+        $portofolio->delete();
+
+        return redirect('/portofolio')->with('success', 'Portofolio has been deleted!');
     }
 }

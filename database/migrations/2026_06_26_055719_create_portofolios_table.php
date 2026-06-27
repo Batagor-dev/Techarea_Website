@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('portofolios', function (Blueprint $table) {
             $table->id();
             $table->string('slug', 50)->unique();
-            $table->foreignId('kategori_protofolio_id')->constrained('kategori_protofolios')->onDelete('cascade');
+            $table->foreignId('kategori_portofolio_id')->constrained('kategori_portofolios')->onDelete('cascade');
             $table->string('name_project_id', 100);
             $table->string('name_project_en', 100);
             $table->string('image');
-            $table->json('technology');
             $table->string('link_demo')->nullable();
             $table->text('deskripsi_id');
             $table->text('deskripsi_en');
