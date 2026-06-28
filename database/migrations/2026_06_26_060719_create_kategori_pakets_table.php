@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('kategori_pakets', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
+            $table->string('name_kategori_paket_id');
+            $table->string('name_kategori_paket_en');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -31,6 +31,10 @@ class RolePermissionSeeder extends Seeder
             'Management Portofolio',
             'Kategori Portofolio',
             'Portofolio',
+            'Layanan',
+            'Kelas Paket',
+            'Kategori Paket',
+            'Paket',
         ];
 
         foreach ($permissiongroups as $permissiongroup) {
@@ -104,6 +108,22 @@ class RolePermissionSeeder extends Seeder
             'Portofolio Create-14',
             'Portofolio Update-14',
             'Portofolio Delete-14',
+            'Layanan Access-15',
+            'Layanan Create-15',
+            'Layanan Update-15',
+            'Layanan Delete-15',
+            'Kelas Paket Access-16',
+            'Kelas Paket Create-16',
+            'Kelas Paket Update-16',
+            'Kelas Paket Delete-16',
+            'Kategori Paket Access-17',
+            'Kategori Paket Create-17',
+            'Kategori Paket Update-17',
+            'Kategori Paket Delete-17',
+            'Paket Access-18',
+            'Paket Create-18',
+            'Paket Update-18',
+            'Paket Delete-18',
         ];
 
         foreach ($permissions as $permission) {

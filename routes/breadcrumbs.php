@@ -296,3 +296,68 @@ Breadcrumbs::for('kategori_portofolio.create', function (BreadcrumbTrail $trail)
 });
 
 // **************************** END KATEGORI PORTOFOLIO ***************************
+
+// **************************** KELAS PAKET ***************************
+
+// Home > Kelas Paket
+Breadcrumbs::for('kelas_paket.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Kelas Paket', route('kelas_paket.index'));
+});
+
+// Home > Kelas Paket > [Update]
+Breadcrumbs::for('kelas_paket.edit', function (BreadcrumbTrail $trail, $kelas_paket) {
+    $trail->parent('kelas_paket.index');
+    $trail->push('Update [' . $kelas_paket->name_kelas_paket_id . ']', route('kelas_paket.edit', $kelas_paket));
+});
+
+// Home > Kelas Paket > Create
+Breadcrumbs::for('kelas_paket.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('kelas_paket.index');
+    $trail->push('Create', route('kelas_paket.create'));
+});
+
+// **************************** END KELAS PAKET ***************************
+
+// **************************** KATEGORI PAKET ***************************
+
+// Home > Kategori Paket
+Breadcrumbs::for('kategori_paket.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Kategori Paket', route('kategori_paket.index'));
+});
+
+// Home > Kategori Paket > [Update]
+Breadcrumbs::for('kategori_paket.edit', function (BreadcrumbTrail $trail, $kategori_paket) {
+    $trail->parent('kategori_paket.index');
+    $trail->push('Update [' . $kategori_paket->name_kategori_paket_id . ']', route('kategori_paket.edit', $kategori_paket));
+});
+
+// Home > Kategori Paket > Create
+Breadcrumbs::for('kategori_paket.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('kategori_paket.index');
+    $trail->push('Create', route('kategori_paket.create'));
+});
+
+// **************************** END KATEGORI PAKET ***************************
+
+// **************************** PAKET ***************************
+
+Breadcrumbs::for('paket.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Paket Layanan', route('paket.index'));
+});
+
+// Home > Paket > [Update]
+Breadcrumbs::for('paket.edit', function (BreadcrumbTrail $trail, $paket) {
+    $trail->parent('paket.index');
+    $trail->push('Update [' . $paket->name_paket_id . ']', route('paket.edit', $paket));
+});
+
+// Home > Paket > Create
+Breadcrumbs::for('paket.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('paket.index');
+    $trail->push('Create', route('paket.create'));
+});
+
+// **************************** END PAKET ***************************

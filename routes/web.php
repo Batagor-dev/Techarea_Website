@@ -53,15 +53,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'article' => 'article:slug',
     ]);
 
+
+    // Management Project
     Route::resource('/kategori_project', App\Http\Controllers\KategoriProjectController::class)->except('show');
+    Route::resource('/project', App\Http\Controllers\ProjectController::class)->except('show');
 
+    // Management Portofolio
     Route::resource('/kategori_portofolio', App\Http\Controllers\KategoriPortofolioController::class)->except('show');
-
     Route::resource('/portofolio', App\Http\Controllers\PortofolioController::class)->except('show');
 
-    Route::resource('/project', App\Http\Controllers\ProjectController::class)->parameters([
-        'project' => 'project:uuid',
-    ]);
+    // Layana
+    Route::resource('/kelas_paket', App\Http\Controllers\KelasPaketController::class)->except('show');
+    Route::resource('/kategori_paket', App\Http\Controllers\KategoriPaketController::class)->except('show');
+    Route::resource('/paket', App\Http\Controllers\PaketController::class)->except('show');
 
     // Route::prefix('setting')->group(function () {
     //     Route::get('/',[App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');

@@ -14,8 +14,15 @@ use Illuminate\Notifications\Messages\MailMessage;
 // Translation Service
 use App\Models\Portofolio;
 use App\Models\KategoriPortofolio;
+use App\Models\KategoriPaket;
+use App\Models\KelasPaket;
+use App\Models\Paket;
+
 use App\Observers\PortofolioObserver;
 use App\Observers\KategoriPortofolioObserver;
+use App\Observers\KategoriPaketObserver;
+use App\Observers\KelasPaketObserver;
+use App\Observers\PaketObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -74,5 +81,8 @@ class AppServiceProvider extends ServiceProvider
         // Register Observers untuk auto-translate
         KategoriPortofolio::observe(KategoriPortofolioObserver::class);
         Portofolio::observe(PortofolioObserver::class);
+        KategoriPaket::observe(KategoriPaketObserver::class);
+        KelasPaket::observe(KelasPaketObserver::class);
+        Paket::observe(PaketObserver::class);
     }
 }

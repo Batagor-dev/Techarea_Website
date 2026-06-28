@@ -163,6 +163,41 @@ class MenuSeeder extends Seeder
             'status'             => '1',
             'sort'               => '2',
         ]);
+
+        $layanan = Menu::create([
+            'nama_menu'          => 'Layanan',
+            'permission_group_id'=> 15,
+            'icon'               => 'ri-service-line',
+            'status'             => '1',
+            'sort'               => '6',
+        ]);
+
+        Menu::create([
+            'menu_id'            => $layanan->id,
+            'nama_menu'          => 'Kelas Layanan',
+            'permission_group_id'=> 16,
+            'href'               => '/kelas_paket',
+            'status'             => '1',
+            'sort'               => '1',
+        ]);
+
+        Menu::create([
+            'menu_id'            => $layanan->id,
+            'nama_menu'          => 'Kategori Layanan',
+            'permission_group_id'=> 17,
+            'href'               => '/kategori_paket',
+            'status'             => '1',
+            'sort'               => '1',
+        ]);
+
+        Menu::create([
+            'menu_id'            => $layanan->id,
+            'nama_menu'          => 'Layanan',
+            'permission_group_id'=> 18,
+            'href'               => '/paket',
+            'status'             => '1',
+            'sort'               => '2',
+        ]);
         
     }
 }
