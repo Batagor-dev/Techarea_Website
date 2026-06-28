@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('testimonis', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
+            $table->string('name_client');
+            $table->text('testimoni_client_id');
+            $table->text('testimoni_client_en');
+            $table->unsignedTinyInteger('rating');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

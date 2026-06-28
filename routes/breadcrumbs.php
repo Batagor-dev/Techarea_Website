@@ -343,6 +343,7 @@ Breadcrumbs::for('kategori_paket.create', function (BreadcrumbTrail $trail) {
 
 // **************************** PAKET ***************************
 
+// Home > Paket
 Breadcrumbs::for('paket.index', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
     $trail->push('Paket Layanan', route('paket.index'));
@@ -361,3 +362,27 @@ Breadcrumbs::for('paket.create', function (BreadcrumbTrail $trail) {
 });
 
 // **************************** END PAKET ***************************
+
+// **************************** TESTIMONI ***************************
+
+// Home > Testimoni
+Breadcrumbs::for('testimoni.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Testimoni', route('testimoni.index'));
+});
+
+// Home > Testimoni > [Update]
+Breadcrumbs::for('testimoni.edit', function (BreadcrumbTrail $trail, $testimoni) {
+    $trail->parent('testimoni.index');
+    $trail->push('Update [' . $testimoni->name_client . ']', route('testimoni.edit', $testimoni));
+});
+
+// Home > Testimoni > Create
+Breadcrumbs::for('testimoni.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('testimoni.index');
+    $trail->push('Create', route('testimoni.create'));
+});
+
+// **************************** END TESTIMONI ***************************
+
+

@@ -17,12 +17,14 @@ use App\Models\KategoriPortofolio;
 use App\Models\KategoriPaket;
 use App\Models\KelasPaket;
 use App\Models\Paket;
+use App\Models\Testimoni;
 
 use App\Observers\PortofolioObserver;
 use App\Observers\KategoriPortofolioObserver;
 use App\Observers\KategoriPaketObserver;
 use App\Observers\KelasPaketObserver;
 use App\Observers\PaketObserver;
+use App\Observers\TestimoniObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -84,5 +86,6 @@ class AppServiceProvider extends ServiceProvider
         KategoriPaket::observe(KategoriPaketObserver::class);
         KelasPaket::observe(KelasPaketObserver::class);
         Paket::observe(PaketObserver::class);
+        Testimoni::observe(TestimoniObserver::class);
     }
 }

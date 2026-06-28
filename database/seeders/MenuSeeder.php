@@ -198,6 +198,15 @@ class MenuSeeder extends Seeder
             'status'             => '1',
             'sort'               => '2',
         ]);
+
+        Menu::create([
+            'nama_menu'          => 'Testimoni',
+            'permission_group_id'=> 19,
+            'href'               => '/testimoni',
+            'icon'               => 'ri-chat-1-line',
+            'status'             => '1',
+            'sort'               => '7',
+        ]);
         
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\HasSlug;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\KategoriPortofolio;
 
 class Portofolio extends Model
 {

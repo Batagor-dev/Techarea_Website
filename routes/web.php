@@ -67,6 +67,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/kategori_paket', App\Http\Controllers\KategoriPaketController::class)->except('show');
     Route::resource('/paket', App\Http\Controllers\PaketController::class)->except('show');
 
+    //Testimoni
+    Route::resource('/testimoni', App\Http\Controllers\TestimoniController::class)->except('show');
+
     // Route::prefix('setting')->group(function () {
     //     Route::get('/',[App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
     //     Route::get('/create',[App\Http\Controllers\SettingController::class, 'create'])->name('setting.create');
