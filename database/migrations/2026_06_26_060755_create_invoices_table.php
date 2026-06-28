@@ -13,6 +13,22 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
+            $table->foreignId('client_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('payment_method_id')->constrained()->cascadeOnDelete();
+            $table->string('invoice_number', 50);
+            $table->dateTime('invoice_date');
+            $table->dateTime('due_date');
+            $table->decimal('project_amount', 10, 2);
+            $table->enum('status', [
+                'draft',
+                'sent',
+                'unpaid',
+                'paid',
+                'cancelled'
+            ])->default('draft');
+            $table->text('notes')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
