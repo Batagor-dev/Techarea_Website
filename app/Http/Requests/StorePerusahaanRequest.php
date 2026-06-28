@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StorePerusahaanRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'name_perusahaan' => 'required|string|max:255',
+            'no_telp' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'logo' => 'required|image|mimes:jpg,jpeg,png,webp,svg|max:2048',
+        ];
+    }
+}

@@ -385,4 +385,27 @@ Breadcrumbs::for('testimoni.create', function (BreadcrumbTrail $trail) {
 
 // **************************** END TESTIMONI ***************************
 
+// **************************** Perusahaan ***************************
+
+// Home > Perusahaan
+Breadcrumbs::for('perusahaan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Perusahaan', route('perusahaan.index'));
+});
+
+// Home > Perusahaan > [Update]
+Breadcrumbs::for('perusahaan.edit', function (BreadcrumbTrail $trail, $perusahaan) {
+    $trail->parent('perusahaan.index');
+    $trail->push('Update [' . $perusahaan->name_perusahaan . ']', route('perusahaan.edit', $perusahaan));
+});
+
+// Home > Perusahaan > Create
+Breadcrumbs::for('perusahaan.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('perusahaan.index');
+    $trail->push('Create', route('perusahaan.create'));
+});
+
+// **************************** END Perusahaan ***************************
+
+
 

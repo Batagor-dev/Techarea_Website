@@ -110,6 +110,16 @@ class MenuSeeder extends Seeder
             'sort'               => '3',
         ]);
 
+        // Menu Perusahaan
+        Menu::create([
+            'nama_menu'          => 'Perusahaan',
+            'permission_group_id'=> 20,
+            'href'               => '/perusahaan',
+            'icon'               => 'ri-building-line',
+            'status'             => '1',
+            'sort'               => '3',
+        ]);
+
         // Menu Project
         $managemnt_project = Menu::create([
             'nama_menu'          => 'Managemnt Project',

@@ -36,6 +36,7 @@ class RolePermissionSeeder extends Seeder
             'Kategori Paket',
             'Paket',
             'Testimoni',
+            'Perusahaan'
         ];
 
         foreach ($permissiongroups as $permissiongroup) {
@@ -129,6 +130,10 @@ class RolePermissionSeeder extends Seeder
             'Testimoni Create-19',
             'Testimoni Update-19',
             'Testimoni Delete-19',
+            'Perusahaan Access-20',
+            'Perusahaan Create-20',
+            'Perusahaan Update-20',
+            'Perusahaan Delete-20',
         ];
 
         foreach ($permissions as $permission) {

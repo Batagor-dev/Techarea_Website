@@ -67,8 +67,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/kategori_paket', App\Http\Controllers\KategoriPaketController::class)->except('show');
     Route::resource('/paket', App\Http\Controllers\PaketController::class)->except('show');
 
-    //Testimoni
+    // Testimoni
     Route::resource('/testimoni', App\Http\Controllers\TestimoniController::class)->except('show');
+
+    // Perusahaan
+    Route::resource('/perusahaan', App\Http\Controllers\PerusahaanController::class)->except('show');
 
     // Route::prefix('setting')->group(function () {
     //     Route::get('/',[App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
