@@ -407,5 +407,27 @@ Breadcrumbs::for('perusahaan.create', function (BreadcrumbTrail $trail) {
 
 // **************************** END Perusahaan ***************************
 
+// **************************** Payment Method ***************************
+
+// Home > Payment Method
+Breadcrumbs::for('payment.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Payment Method', route('payment.index'));
+});
+
+// Home > Payment Method > [Update]
+Breadcrumbs::for('payment.edit', function (BreadcrumbTrail $trail, $payment) {
+    $trail->parent('payment.index');
+    $trail->push('Update [' . $payment->name_payment_method . ']', route('payment.edit', $payment));
+});
+
+// Home > Payment Method > Create
+Breadcrumbs::for('payment.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('payment.index');
+    $trail->push('Create', route('payment.create'));
+});
+
+// **************************** END Payment Method ***************************
+
 
 

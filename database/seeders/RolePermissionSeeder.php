@@ -36,7 +36,9 @@ class RolePermissionSeeder extends Seeder
             'Kategori Paket',
             'Paket',
             'Testimoni',
-            'Perusahaan'
+            'Perusahaan',
+            'Management Invoice',
+            'Payment Method',
         ];
 
         foreach ($permissiongroups as $permissiongroup) {
@@ -84,10 +86,6 @@ class RolePermissionSeeder extends Seeder
             'Setting Update-8',
             'Setting Delete-8',
             'Management Project Access-9',
-            'Management Project Detail-9',
-            'Management Project Create-9',
-            'Management Project Update-9',
-            'Management Project Delete-9',
             'Kategori Project Access-10',
             'Kategori Project Detail-10',
             'Kategori Project Create-10',
@@ -99,9 +97,6 @@ class RolePermissionSeeder extends Seeder
             'Project Update-11',
             'Project Delete-11',
             'Management Portofolio Access-12',
-            'Management Portofolio Create-12',
-            'Management Portofolio Update-12',
-            'Management Portofolio Delete-12',
             'Kategori Portofolio Access-13',
             'Kategori Portofolio Create-13',
             'Kategori Portofolio Update-13',
@@ -111,9 +106,6 @@ class RolePermissionSeeder extends Seeder
             'Portofolio Update-14',
             'Portofolio Delete-14',
             'Layanan Access-15',
-            'Layanan Create-15',
-            'Layanan Update-15',
-            'Layanan Delete-15',
             'Kelas Paket Access-16',
             'Kelas Paket Create-16',
             'Kelas Paket Update-16',
@@ -134,6 +126,11 @@ class RolePermissionSeeder extends Seeder
             'Perusahaan Create-20',
             'Perusahaan Update-20',
             'Perusahaan Delete-20',
+            'Management Invoice Access-21',
+            'Payment Method Access-22',
+            'Payment Method Create-22',
+            'Payment Method Update-22',
+            'Payment Method Delete-22',
         ];
 
         foreach ($permissions as $permission) {

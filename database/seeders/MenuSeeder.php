@@ -112,7 +112,7 @@ class MenuSeeder extends Seeder
 
         // Menu Perusahaan
         Menu::create([
-            'nama_menu'          => 'Perusahaan',
+            'nama_menu'          => 'Company',
             'permission_group_id'=> 20,
             'href'               => '/perusahaan',
             'icon'               => 'ri-building-line',
@@ -121,8 +121,8 @@ class MenuSeeder extends Seeder
         ]);
 
         // Menu Project
-        $managemnt_project = Menu::create([
-            'nama_menu'          => 'Managemnt Project',
+        $management_project = Menu::create([
+            'nama_menu'          => 'Management Project',
             'permission_group_id'=> 9,
             'icon'               => 'ri-folders-line',
             'status'             => '1',
@@ -130,7 +130,7 @@ class MenuSeeder extends Seeder
         ]);
 
         Menu::create([
-            'menu_id'            => $managemnt_project->id,
+            'menu_id'            => $management_project->id,
             'nama_menu'          => 'Kategori Project',
             'permission_group_id'=> 10,
             'href'               => '/kategori_project',
@@ -139,7 +139,7 @@ class MenuSeeder extends Seeder
         ]);
 
         Menu::create([
-            'menu_id'            => $managemnt_project->id,
+            'menu_id'            => $management_project->id,
             'nama_menu'          => 'Project',
             'permission_group_id'=> 11,
             'href'               => '/project',
@@ -148,8 +148,8 @@ class MenuSeeder extends Seeder
         ]);
 
         // Management Portofolio
-        $managemnt_portofolio = Menu::create([
-            'nama_menu'          => 'Managemnt Porto',
+        $management_portofolio = Menu::create([
+            'nama_menu'          => 'Management Porto',
             'permission_group_id'=> 12,
             'icon'               => 'ri-briefcase-line',
             'status'             => '1',
@@ -157,7 +157,7 @@ class MenuSeeder extends Seeder
         ]);
 
         Menu::create([
-            'menu_id'            => $managemnt_portofolio->id,
+            'menu_id'            => $management_portofolio->id,
             'nama_menu'          => 'Kategori Portofolio',
             'permission_group_id'=> 13,
             'href'               => '/kategori_portofolio',
@@ -166,7 +166,7 @@ class MenuSeeder extends Seeder
         ]);
 
         Menu::create([
-            'menu_id'            => $managemnt_portofolio->id,
+            'menu_id'            => $management_portofolio->id,
             'nama_menu'          => 'Portofolio',
             'permission_group_id'=> 14,
             'href'               => '/portofolio',
@@ -175,7 +175,7 @@ class MenuSeeder extends Seeder
         ]);
 
         $layanan = Menu::create([
-            'nama_menu'          => 'Layanan',
+            'nama_menu'          => 'Services',
             'permission_group_id'=> 15,
             'icon'               => 'ri-service-line',
             'status'             => '1',
@@ -184,7 +184,7 @@ class MenuSeeder extends Seeder
 
         Menu::create([
             'menu_id'            => $layanan->id,
-            'nama_menu'          => 'Kelas Layanan',
+            'nama_menu'          => 'Package Class',
             'permission_group_id'=> 16,
             'href'               => '/kelas_paket',
             'status'             => '1',
@@ -193,7 +193,7 @@ class MenuSeeder extends Seeder
 
         Menu::create([
             'menu_id'            => $layanan->id,
-            'nama_menu'          => 'Kategori Layanan',
+            'nama_menu'          => 'Category Package',
             'permission_group_id'=> 17,
             'href'               => '/kategori_paket',
             'status'             => '1',
@@ -202,7 +202,7 @@ class MenuSeeder extends Seeder
 
         Menu::create([
             'menu_id'            => $layanan->id,
-            'nama_menu'          => 'Layanan',
+            'nama_menu'          => 'Package',
             'permission_group_id'=> 18,
             'href'               => '/paket',
             'status'             => '1',
@@ -216,6 +216,24 @@ class MenuSeeder extends Seeder
             'icon'               => 'ri-chat-1-line',
             'status'             => '1',
             'sort'               => '7',
+        ]);
+
+        // Management Invoice
+        $management_invoice = Menu::create([
+            'nama_menu'          => 'Management Invoice',
+            'permission_group_id'=> 21,
+            'icon'               => 'ri-bill-line',
+            'status'             => '1',
+            'sort'               => '8',
+        ]);
+
+        Menu::create([
+            'menu_id'            => $management_invoice->id,
+            'nama_menu'          => 'Payment Method',
+            'permission_group_id'=> 22,
+            'href'               => '/payment',
+            'status'             => '1',
+            'sort'               => '1',
         ]);
         
     }

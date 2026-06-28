@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
-            $table->string('name_payment_method', 100);          // BCA, Mandiri, DANA, GoPay, QRIS
+            $table->uuid('uuid', 50)->unique();
+            $table->string('name_payment_method', 100)->unique();          // BCA, Mandiri, DANA, GoPay, QRIS
             $table->string('type_payment_method', 20);           // bank, ewallet, qris
-            $table->string('account_name')->nullable();
-            $table->string('account_number')->nullable();
+            $table->string('account_name');
+            $table->string('account_number');
             $table->boolean('is_active')->default(true);
             $table->softDeletes();
             $table->timestamps();
