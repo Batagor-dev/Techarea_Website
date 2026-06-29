@@ -25,7 +25,7 @@ class StoreInvoiceRequest extends FormRequest
             // Invoice
             'client_id' => 'nullable|exists:clients,id',
             'payment_method_id' => 'nullable|exists:payment_methods,id',
-            'invoice_number' => 'required|string|max:50|unique:invoices,invoice_number',
+            // 'invoice_number' => 'required|string|max:50|unique:invoices,invoice_number',
             'invoice_date' => 'required|date',
             'due_date' => 'required|date',
             'project_amount' => 'required|numeric',

@@ -96,10 +96,16 @@
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Invoice Number</label>
         <div class="col-sm-9">
-            <input type="text"
-                name="invoice_number"
+            <input
+                type="text"
                 class="form-control"
-                value="{{ old('invoice_number', $invoice_data->invoice_number ?? '') }}">
+                value="{{ old('invoice_number', $invoice_data->invoice_number ?? $invoice_number) }}"
+                readonly>
+
+            <input
+                type="hidden"
+                name="invoice_number"
+                value="{{ old('invoice_number', $invoice_data->invoice_number ?? $invoice_number) }}">
         </div>
     </div>
 
