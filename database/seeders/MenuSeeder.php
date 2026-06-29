@@ -235,6 +235,15 @@ class MenuSeeder extends Seeder
             'status'             => '1',
             'sort'               => '1',
         ]);
+
+        Menu::create([
+            'menu_id'            => $management_invoice->id,
+            'nama_menu'          => 'Invoice',
+            'permission_group_id'=> 23,
+            'href'               => '/invoice',
+            'status'             => '1',
+            'sort'               => '2',
+        ]);
         
     }
 }

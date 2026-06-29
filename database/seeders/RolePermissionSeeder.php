@@ -39,6 +39,7 @@ class RolePermissionSeeder extends Seeder
             'Perusahaan',
             'Management Invoice',
             'Payment Method',
+            'Invoice'
         ];
 
         foreach ($permissiongroups as $permissiongroup) {
@@ -131,6 +132,10 @@ class RolePermissionSeeder extends Seeder
             'Payment Method Create-22',
             'Payment Method Update-22',
             'Payment Method Delete-22',
+            'Invoice Access-23',
+            'Invoice Create-23',
+            'Invoice Update-23',
+            'Invoice Delete-23',
         ];
 
         foreach ($permissions as $permission) {

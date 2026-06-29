@@ -16,9 +16,9 @@ return new class extends Migration
             $table->uuid('uuid', 50)->unique();
             $table->string('company_client', 100);
             $table->string('name_client', 100);
-            $table->string('no_telp', 20);
+            $table->string('phone_number', 20);
             $table->string('email', 100);
-            $table->string('alamat', 255);
+            $table->string('address', 255);
             $table->softDeletes();
             $table->timestamps();
         });

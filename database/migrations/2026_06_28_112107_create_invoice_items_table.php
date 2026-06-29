@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('invoice_id')->constrained()->cascadeOnDelete();
             $table->string('item_name', 100);
             $table->string('item_description', 255);
-            $table->decimal('item_amount', 10, 2);
+            $table->decimal('item_price', 10, 2);
             $table->softDeletes();
             $table->timestamps();
         });

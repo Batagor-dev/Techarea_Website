@@ -76,6 +76,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Payment
     Route::resource('/payment', App\Http\Controllers\PaymentMethodController::class)->except('show');
 
+    // Invoice
+    Route::resource('/invoice', App\Http\Controllers\InvoiceController::class)->except('show');
+
     // Route::prefix('setting')->group(function () {
     //     Route::get('/',[App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
     //     Route::get('/create',[App\Http\Controllers\SettingController::class, 'create'])->name('setting.create');

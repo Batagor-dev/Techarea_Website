@@ -14,12 +14,17 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->foreignId('client_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('payment_method_id')->constrained()->cascadeOnDelete();
-            $table->string('invoice_number', 50);
-            $table->dateTime('invoice_date');
-            $table->dateTime('due_date');
+            $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
+            $table->foreignId('payment_method_id')->constrained('payment_methods')->onDelete('cascade');
+            $table->string('invoice_number', 50)->unique();
+            $table->date('invoice_date');
+            $table->date('due_date');
             $table->decimal('project_amount', 10, 2);
+            $table->enum('payment_status', [
+                'paid',
+                'unpaid',
+                'partial'
+            ])->default('unpaid');
             $table->enum('status', [
                 'draft',
                 'sent',

@@ -429,5 +429,28 @@ Breadcrumbs::for('payment.create', function (BreadcrumbTrail $trail) {
 
 // **************************** END Payment Method ***************************
 
+// **************************** Invoice ***************************
+
+// Home > Invoice
+Breadcrumbs::for('invoice.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Invoice', route('invoice.index'));
+});
+
+// Home > Invoice > [Update]
+Breadcrumbs::for('invoice.edit', function (BreadcrumbTrail $trail, $invoice) {
+    $trail->parent('invoice.index');
+    $trail->push('Update [' . $invoice->name_invoice . ']', route('invoice.edit', $invoice));
+});
+
+// Home > Invoice > Create
+Breadcrumbs::for('invoice.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('invoice.index');
+    $trail->push('Create', route('invoice.create'));
+});
+
+// **************************** END Invoice ***************************
+
+
 
 
