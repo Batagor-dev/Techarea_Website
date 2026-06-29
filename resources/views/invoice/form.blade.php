@@ -52,7 +52,8 @@
             <input type="text"
                 name="name_client"
                 class="form-control @error('name_client') is-invalid @enderror"
-                value="{{ old('name_client', $invoice_data->client->name_client ?? '') }}">
+                value="{{ old('name_client', $invoice_data->client->name_client ?? '') }}"
+                placeholder="PIC Name">
         </div>
     </div>
 
@@ -62,7 +63,8 @@
             <input type="email"
                 name="email"
                 class="form-control"
-                value="{{ old('email', $invoice_data->client->email ?? '') }}">
+                value="{{ old('email', $invoice_data->client->email ?? '') }}"
+                placeholder="Email">
         </div>
     </div>
 
@@ -72,7 +74,8 @@
             <input type="text"
                 name="phone_number"
                 class="form-control"
-                value="{{ old('phone_number', $invoice_data->client->phone_number ?? '') }}">
+                value="{{ old('phone_number', $invoice_data->client->phone_number ?? '') }}"
+                placeholder="Phone Number">
         </div>
     </div>
 
@@ -119,16 +122,20 @@
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Invoice Date</label>
         <div class="col-sm-4">
-            <input type="date"
+            <input
+                type="date"
+                id="invoice_date"
                 name="invoice_date"
                 class="form-control"
-                value="{{ old('invoice_date', isset($invoice_data) ? $invoice_data->invoice_date->format('Y-m-d') : '') }}">
+                value="{{ old('invoice_date', isset($invoice_data) ? $invoice_data->invoice_date->format('Y-m-d') : now()->format('Y-m-d')) }}">
         </div>
 
         <label class="col-sm-1 col-form-label">Due</label>
 
         <div class="col-sm-4">
-            <input type="date"
+            <input
+                type="date"
+                id="due_date"
                 name="due_date"
                 class="form-control"
                 value="{{ old('due_date', isset($invoice_data) ? $invoice_data->due_date->format('Y-m-d') : '') }}">
@@ -138,10 +145,13 @@
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Project Amount</label>
         <div class="col-sm-9">
-            <input type="number"
+            <input
+                type="text"
+                id="project_amount"
                 name="project_amount"
                 class="form-control"
-                value="{{ old('project_amount', $invoice_data->project_amount ?? '') }}">
+                value="{{ old('project_amount', isset($invoice_data) ? number_format($invoice_data->project_amount, 0, ',', '.') : '') }}"
+                placeholder="Project Amount">
         </div>
     </div>
 
@@ -149,7 +159,7 @@
         <label class="col-sm-3 col-form-label">Status</label>
 
         <div class="col-sm-4">
-            <select name="status" class="form-select">
+            <select name="status" class="form-select select2">
                 <option value="draft">Draft</option>
                 <option value="sent">Sent</option>
                 <option value="completed">Completed</option>
@@ -159,7 +169,7 @@
         <label class="col-sm-1 col-form-label">Payment</label>
 
         <div class="col-sm-4">
-            <select name="payment_status" class="form-select">
+            <select name="payment_status" class="form-select select2">
                 <option value="unpaid">Unpaid</option>
                 <option value="partial">Partial</option>
                 <option value="paid">Paid</option>
@@ -170,7 +180,7 @@
     <div class="row mb-4">
         <label class="col-sm-3 col-form-label">Notes</label>
         <div class="col-sm-9">
-            <textarea name="notes" class="form-control" rows="3">{{ old('notes', $invoice_data->notes ?? '') }}</textarea>
+            <textarea name="notes" class="form-control" rows="3" >{{ old('notes', $invoice_data->notes ?? '') }}</textarea>
         </div>
     </div>
 
@@ -227,26 +237,59 @@
     <script>
        $(function () {
 
-        $('.select2').select2({
-            placeholder: "Select an option",
-            allowClear: true
-        });
+            $('.select2').select2({
+                placeholder: "Select an option",
+                allowClear: true
+            });
 
-        $('.prevent-double-submit').on('submit', function () {
+            function updateDueDate() {
+                let invoiceDate = $('#invoice_date').val();
 
-            const $form = $(this);
+                if (invoiceDate) {
+                    $('#due_date').attr('min', invoiceDate);
 
-            if ($form.data('submitted')) {
-                return false;
+                    if (
+                        $('#due_date').val() &&
+                        $('#due_date').val() < invoiceDate
+                    ) {
+                        $('#due_date').val(invoiceDate);
+                    }
+                }
             }
 
-            $form.data('submitted', true);
+            // Saat halaman pertama dibuka
+            updateDueDate();
 
-            $form.find('button[type="submit"]')
-                .prop('disabled', true)
-                .html('<span class="spinner-border spinner-border-sm me-2"></span>Saving...');
+            // Saat invoice date berubah
+            $('#invoice_date').on('change', updateDueDate);
+
+            $('.prevent-double-submit').on('submit', function () {
+
+                const $form = $(this);
+
+                if ($form.data('submitted')) {
+                    return false;
+                }
+
+                $form.data('submitted', true);
+
+                $form.find('button[type="submit"]')
+                    .prop('disabled', true)
+                    .html('<span class="spinner-border spinner-border-sm me-2"></span>Saving...');
+            });
+
+            $('#project_amount').on('input', function () {
+                let value = $(this).val().replace(/\D/g, '');
+
+                $(this).val(new Intl.NumberFormat('id-ID').format(value));
+            });
+
+            $('.prevent-double-submit').on('submit', function () {
+                $('#project_amount').val(
+                    $('#project_amount').val().replace(/\./g, '')
+                );
+            });
+
         });
-
-    });
     </script>
 @endpush
