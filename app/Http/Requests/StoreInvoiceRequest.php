@@ -36,10 +36,14 @@ class StoreInvoiceRequest extends FormRequest
             'payment_amount' => 'nullable|numeric',
             
             // Invoice Items
-            'invoice_id' => 'nullable|exists:invoice,id',
-            'item_name' => 'required|string|max:255',
-            'item_description' => 'required|string|max:255',
-            'item_price' => 'required|numeric',
+            'item_name' => 'required|array|min:1',
+            'item_name.*' => 'required|string|max:255',
+
+            'item_description' => 'required|array|min:1',
+            'item_description.*' => 'required|string',
+
+            'item_price' => 'required|array|min:1',
+            'item_price.*' => 'required|numeric|min:0',
         ];
     }
 }

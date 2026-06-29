@@ -65,12 +65,16 @@ class InvoiceController extends Controller
                 'payment_amount'    => $request->payment_amount,
             ]);
 
-            InvoiceItem::create([
-                'invoice_id'       => $invoice->id,
-                'item_name'        => $request->item_name,
-                'item_description' => $request->item_description,
-                'item_price'       => $request->item_price,
-            ]);
+            foreach ($request->item_name as $i => $item) {
+
+                InvoiceItem::create([
+                    'invoice_id'       => $invoice->id,
+                    'item_name'        => $request->item_name[$i],
+                    'item_description' => $request->item_description[$i],
+                    'item_price'       => $request->item_price[$i],
+                ]);
+
+            }
         });
 
         Cache::forget('all-data');

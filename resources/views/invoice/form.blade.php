@@ -156,8 +156,7 @@
                 id="project_amount"
                 name="project_amount"
                 class="form-control"
-                value="{{ old('project_amount', isset($invoice_data) ? number_format($invoice_data->project_amount, 0, ',', '.') : '') }}"
-                placeholder="Project Amount">
+                readonly>
         </div>
     </div>
 
@@ -195,36 +194,55 @@
     {{-- ================= ITEM ================= --}}
     <h5 class="my-4">Invoice Item</h5>
 
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Item Name</label>
-        <div class="col-sm-9">
-            <input
-    type="text"
-    name="item_name"
-    class="form-control"
-    value="{{ old('item_name', isset($invoice_data) ? optional($invoice_data->items->first())->item_name : '') }}">
+<div id="invoice-items">
+
+    <div class="item-row border rounded p-3 mb-3">
+
+        <div class="row">
+            <div class="col-md-4">
+                <label>Item</label>
+                <input type="text"
+                    name="item_name[]"
+                    class="form-control"
+                    required>
+            </div>
+
+            <div class="col-md-5">
+                <label>Description</label>
+                <input type="text"
+                    name="item_description[]"
+                    class="form-control"
+                    required>
+            </div>
+
+            <div class="col-md-2">
+                <label>Price</label>
+                <input type="text"
+                    name="item_price[]"
+                    class="form-control item-price"
+                    required>
+            </div>
+
+            <div class="col-md-1 d-flex align-items-end">
+                <button
+                    type="button"
+                    class="btn btn-danger remove-item">
+                    ×
+                </button>
+            </div>
+
         </div>
+
     </div>
 
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Description</label>
-        <div class="col-sm-9">
-            <textarea name="item_description"
-                class="form-control"
-                rows="3">{{ old('item_description', isset($invoice_data) ? optional($invoice_data->items->first())->item_description : '') }}</textarea>
-        </div>
-    </div>
+</div>
 
-    <div class="row mb-4">
-        <label class="col-sm-3 col-form-label">Price</label>
-        <div class="col-sm-9">
-            <input
-                type="number"
-                name="item_price"
-                class="form-control"
-                value="{{ old('item_price', isset($invoice_data) ? optional($invoice_data->items->first())->item_price : '') }}">
-        </div>
-    </div>
+<button
+    type="button"
+    id="add-item"
+    class="btn btn-success">
+    + Add Item
+</button>
 
     <div class="text-end">
         <button class="btn btn-primary">Save Invoice</button>
@@ -240,62 +258,153 @@
 @endsection
 
 @push('scripts')
-    <script>
-       $(function () {
+<script>
+$(function () {
 
-            $('.select2').select2({
-                placeholder: "Select an option",
-                allowClear: true
-            });
+    initSelect2();
+    initDueDate();
+    initCurrencyFormatter();
+    initInvoiceItems();
+    initFormSubmit();
 
-            function updateDueDate() {
-                let invoiceDate = $('#invoice_date').val();
+    // ================= SELECT2 =================
 
-                if (invoiceDate) {
-                    $('#due_date').attr('min', invoiceDate);
+    function initSelect2() {
+        $('.select2').select2({
+            placeholder: "Select an option",
+            allowClear: true
+        });
+    }
 
-                    if (
-                        $('#due_date').val() &&
-                        $('#due_date').val() < invoiceDate
-                    ) {
-                        $('#due_date').val(invoiceDate);
-                    }
-                }
+    // ================= DUE DATE =================
+
+    function initDueDate() {
+
+        updateDueDate();
+
+        $('#invoice_date').on('change', updateDueDate);
+
+        function updateDueDate() {
+
+            const invoiceDate = $('#invoice_date').val();
+
+            if (!invoiceDate) return;
+
+            $('#due_date').attr('min', invoiceDate);
+
+            if ($('#due_date').val() < invoiceDate) {
+                $('#due_date').val(invoiceDate);
+            }
+        }
+
+    }
+
+    // ================= FORMAT RUPIAH =================
+
+    function initCurrencyFormatter() {
+
+        $(document).on('input', '.item-price', function () {
+
+            let value = $(this).val().replace(/\D/g, '');
+
+            $(this).val(
+                new Intl.NumberFormat('id-ID').format(value)
+            );
+
+            calculateProjectAmount();
+
+        });
+
+        calculateProjectAmount();
+    }
+
+    // ================= HITUNG TOTAL =================
+
+    function calculateProjectAmount() {
+
+        let total = 0;
+
+        $('.item-price').each(function () {
+
+            let value = $(this).val()
+                .replace(/\./g, '')
+                .replace(/,/g, '');
+
+            total += Number(value) || 0;
+
+        });
+
+        $('#project_amount').val(
+            new Intl.NumberFormat('id-ID').format(total)
+        );
+
+    }
+
+    // ================= ADD / REMOVE ITEM =================
+
+    function initInvoiceItems() {
+
+        $('#add-item').click(function () {
+
+            let clone = $('.item-row:first').clone();
+
+            clone.find('input').val('');
+
+            $('#invoice-items').append(clone);
+
+            calculateProjectAmount();
+
+        });
+
+        $(document).on('click', '.remove-item', function () {
+
+            if ($('.item-row').length === 1) {
+                alert('Minimal harus ada 1 item.');
+                return;
             }
 
-            // Saat halaman pertama dibuka
-            updateDueDate();
+            $(this).closest('.item-row').remove();
 
-            // Saat invoice date berubah
-            $('#invoice_date').on('change', updateDueDate);
+            calculateProjectAmount();
 
-            $('.prevent-double-submit').on('submit', function () {
+        });
 
-                const $form = $(this);
+    }
 
-                if ($form.data('submitted')) {
-                    return false;
-                }
+    // ================= SUBMIT =================
 
-                $form.data('submitted', true);
+    function initFormSubmit() {
 
-                $form.find('button[type="submit"]')
-                    .prop('disabled', true)
-                    .html('<span class="spinner-border spinner-border-sm me-2"></span>Saving...');
-            });
+        $('.prevent-double-submit').submit(function () {
 
-            $('#project_amount').on('input', function () {
-                let value = $(this).val().replace(/\D/g, '');
+            const form = $(this);
 
-                $(this).val(new Intl.NumberFormat('id-ID').format(value));
-            });
+            if (form.data('submitted')) {
+                return false;
+            }
 
-            $('.prevent-double-submit').on('submit', function () {
-                $('#project_amount').val(
-                    $('#project_amount').val().replace(/\./g, '')
+            form.data('submitted', true);
+
+            form.find('button[type="submit"]')
+                .prop('disabled', true)
+                .html('<span class="spinner-border spinner-border-sm me-2"></span>Saving...');
+
+            $('#project_amount').val(
+                $('#project_amount').val().replace(/\./g, '')
+            );
+
+            $('.item-price').each(function () {
+
+                $(this).val(
+                    $(this).val().replace(/\./g, '')
                 );
+
             });
 
         });
-    </script>
+
+    }
+
+});
+</script>
 @endpush
