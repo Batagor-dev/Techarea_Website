@@ -28,8 +28,7 @@ return new class extends Migration
             $table->enum('status', [
                 'draft',
                 'sent',
-                'unpaid',
-                'paid',
+                'completed',
                 'cancelled'
             ])->default('draft');
             $table->text('notes')->nullable();

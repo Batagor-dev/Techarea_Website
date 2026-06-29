@@ -156,6 +156,7 @@
                 id="project_amount"
                 name="project_amount"
                 class="form-control"
+                value="{{ old('project_amount', isset($invoice_data) ? number_format($invoice_data->project_amount,0,',','.') : '') }}"
                 readonly>
         </div>
     </div>
@@ -168,6 +169,7 @@
                 <option value="draft">Draft</option>
                 <option value="sent">Sent</option>
                 <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
             </select>
         </div>
 
@@ -175,9 +177,19 @@
 
         <div class="col-sm-4">
             <select name="payment_status" class="form-select select2">
-                <option value="unpaid">Unpaid</option>
-                <option value="partial">Partial</option>
-                <option value="paid">Paid</option>
+
+                <option value="unpaid" {{ old('payment_status', $invoice_data->payment_status ?? '') == 'unpaid' ? 'selected' : '' }}>
+                    Unpaid
+                </option>
+
+                <option value="partial" {{ old('payment_status', $invoice_data->payment_status ?? '') == 'partial' ? 'selected' : '' }}>
+                    Partial
+                </option>
+
+                <option value="paid" {{ old('payment_status', $invoice_data->payment_status ?? '') == 'paid' ? 'selected' : '' }}>
+                    Paid
+                </option>
+
             </select>
         </div>
     </div>
@@ -194,32 +206,59 @@
     {{-- ================= ITEM ================= --}}
     <h5 class="my-4">Invoice Item</h5>
 
-<div id="invoice-items">
+    <div id="invoice-items">
+
+    @php
+        $items = old('item_name')
+            ? collect(old('item_name'))->map(function ($item, $i) {
+                return (object)[
+                    'item_name' => old('item_name')[$i],
+                    'item_description' => old('item_description')[$i],
+                    'item_price' => old('item_price')[$i],
+                ];
+            })
+            : (isset($invoice_data)
+                ? $invoice_data->invoiceItems
+                : collect([(object)[
+                    'item_name' => '',
+                    'item_description' => '',
+                    'item_price' => '',
+                ]]));
+    @endphp
+
+    @foreach($items as $item)
 
     <div class="item-row border rounded p-3 mb-3">
 
         <div class="row">
+
             <div class="col-md-4">
                 <label>Item</label>
-                <input type="text"
+                <input
+                    type="text"
                     name="item_name[]"
                     class="form-control"
+                    value="{{ $item->item_name }}"
                     required>
             </div>
 
             <div class="col-md-5">
                 <label>Description</label>
-                <input type="text"
+                <input
+                    type="text"
                     name="item_description[]"
                     class="form-control"
+                    value="{{ $item->item_description }}"
                     required>
             </div>
 
             <div class="col-md-2">
                 <label>Price</label>
-                <input type="text"
+                <input
+                    type="text"
                     name="item_price[]"
                     class="form-control item-price"
+                    value="{{ $item->item_price ? number_format($item->item_price,0,',','.') : '' }}"
                     required>
             </div>
 
@@ -235,14 +274,16 @@
 
     </div>
 
-</div>
+    @endforeach
 
-<button
-    type="button"
-    id="add-item"
-    class="btn btn-success">
-    + Add Item
-</button>
+    </div>
+
+    <button
+        type="button"
+        id="add-item"
+        class="btn btn-success">
+        + Add Item
+    </button>
 
     <div class="text-end">
         <button class="btn btn-primary">Save Invoice</button>

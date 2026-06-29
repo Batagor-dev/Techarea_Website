@@ -440,7 +440,7 @@ Breadcrumbs::for('invoice.index', function (BreadcrumbTrail $trail) {
 // Home > Invoice > [Update]
 Breadcrumbs::for('invoice.edit', function (BreadcrumbTrail $trail, $invoice) {
     $trail->parent('invoice.index');
-    $trail->push('Update [' . $invoice->name_invoice . ']', route('invoice.edit', $invoice));
+    $trail->push('Update [' . $invoice->invoice_number . ']', route('invoice.edit', $invoice));
 });
 
 // Home > Invoice > Create

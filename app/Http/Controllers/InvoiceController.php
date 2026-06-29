@@ -88,9 +88,13 @@ class InvoiceController extends Controller
      */
     public function edit(Invoice $invoice)
     {
-        $this->data['invoices'] = Invoice::all();
-        $this->data['invoice_data'] = $invoice;
-        // dd($this->data['invoice_data']);
+        $this->data['invoice_data'] = $invoice->load([
+            'client',
+            'paymentMethod',
+            'invoiceItems',
+        ]);
+
+        $this->data['payment_methods'] = PaymentMethod::all();
         $this->data['action'] = "/invoice/" . $invoice->uuid;
 
         return view('invoice.form', $this->data);
@@ -99,24 +103,75 @@ class InvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateInvoiceRequest $request, Invoice $invoice)
-    {
-        $data = $request->validated();
+public function update(UpdateInvoiceRequest $request, Invoice $invoice)
+{
+    DB::transaction(function () use ($request, $invoice) {
 
-        $invoice->update($data);
+        // Update Client
+        $invoice->client->update([
+            'company_client' => $request->company_client,
+            'name_client'    => $request->name_client,
+            'email'          => $request->email,
+            'phone_number'   => $request->phone_number,
+            'address'        => $request->address,
+        ]);
 
-        Cache::forget('all-data');
+        // Hitung ulang total project
+        $total = collect($request->item_price)
+            ->sum(fn($price) => (float) str_replace('.', '', $price));
 
-        return redirect('/invoice')
-            ->with('success', 'Invoice berhasil diupdate!');
-    }
+        // Update Invoice
+        $invoice->update([
+            'payment_method_id' => $request->payment_method_id,
+            'invoice_date'      => $request->invoice_date,
+            'due_date'          => $request->due_date,
+            'project_amount'    => $total,
+            'status'            => $request->status,
+            'notes'             => $request->notes,
+            'payment_status'    => $request->payment_status,
+            'payment_date'      => $request->payment_date,
+            'payment_amount'    => $request->payment_amount,
+        ]);
+
+        // Hapus seluruh item lama
+        $invoice->invoiceItems()->delete();
+
+        // Simpan ulang item baru
+        foreach ($request->item_name as $i => $item) {
+
+            $invoice->invoiceItems()->create([
+                'item_name'        => $request->item_name[$i],
+                'item_description' => $request->item_description[$i],
+                'item_price'       => str_replace('.', '', $request->item_price[$i]),
+            ]);
+
+        }
+
+    });
+
+    Cache::forget('all-data');
+
+    return redirect('/invoice')
+        ->with('success', 'Invoice berhasil diupdate!');
+}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Invoice $invoice)
     {
-        $invoice->delete();
+        DB::transaction(function () use ($invoice) {
+
+            $client = $invoice->client;
+
+            $invoice->invoiceItems()->delete();
+            $invoice->delete();
+
+            if ($client && $client->invoices()->count() == 0) {
+                $client->delete();
+            }
+
+        });
 
         Cache::forget('all-data');
 
